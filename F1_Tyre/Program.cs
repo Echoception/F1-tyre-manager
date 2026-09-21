@@ -13,12 +13,11 @@ namespace F1_Tyre
         {
 
             int menu = 99;
-            bool validInput = false;
-            string? readResult = "";
             TyreData tyreData = new TyreData();
             SaveData saveData = new SaveData(tyreData);
+            Alarm alarm = new Alarm();
 
-            tyreData.GetData();
+            //tyreData.GetData();
             
             do
             {
@@ -32,6 +31,7 @@ namespace F1_Tyre
                 Console.WriteLine("[6] - Re-input times");
                 Console.WriteLine("[7] - Load Set-Up");
                 Console.WriteLine("[8] - Save Set-Up");
+                Console.WriteLine("[9] - Set Alarm");
                 Console.WriteLine("[0] - EXIT");
 
                 menu = tyreData.GetValidInt();
@@ -72,6 +72,10 @@ namespace F1_Tyre
 
                     case 8:
                         saveData.SaveSetUpData();
+                        break;
+
+                    case 9:
+                        alarm.Timer();
                         break;
 
                     default:

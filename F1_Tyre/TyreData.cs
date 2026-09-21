@@ -31,7 +31,7 @@ namespace F1_Tyre
 
         public decimal GetValidDecimal()
         {
-            string? userInput = "";
+            string userInput = "";
             decimal validDecimal = 0;
             bool validInput = false;
 

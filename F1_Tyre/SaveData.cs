@@ -11,30 +11,30 @@ namespace F1_Tyre
     internal class SaveData(TyreData tyreData)
     {
 
-        List<string> tracklist = ["Sakhir, Bahrain",   // Dont think i need this
-            "Jeddah, Saudi Arabia",
-            "Melbourne, Australia",
-            "Suzuka, Japan",
-            "Shanghai, China",
-            "Miami, Florida",
-            "Imola (Emilia-Romagna)",
-            "Monte Carlo, Monaco",
-            "Montreal, Canada",
-            "Catalunya, Spain",
-            "Red Bull Ring(Spielberg), Austria",
-            "Silverstone, Great Britain",
-            "Hungaroring, Hungary",
-            "Spa-FranCorchamps, Belgium",
-            "Zandvoort, Netherlands",
-            "Monza",
-            "Baku, Azerbaijan",
-            "Marina Bay, Singapore",
-            "Circuit of the Americas(COTA)  Austin, Texas",
-            "Mexico City, Mexico",
-            "Interlagos, Brazil",
-            "Las Vegas, Nevada",
-            "Losail, Qatar",
-            "Yas Marina, Abu Dhabi, UAE"];   
+        List<string> tracklist = ["sakhir, bahrain",   
+            "jeddah, saudi arabia",
+            "melbourne, australia",
+            "suzuka, japan",
+            "shanghai, china",
+            "miami, florida",
+            "imola (emilia-romagna)",
+            "monte carlo, monaco",
+            "montreal, canada",
+            "catalunya, spain",
+            "red bull ring(spielberg), austria",
+            "silverstone, great britain, uk",
+            "hungaroring, hungary",
+            "spa-francorchamps, belgium",
+            "zandvoort, netherlands",
+            "monza",
+            "baku, azerbaijan",
+            "marina bay, singapore",
+            "circuit of the americas(cota)  austin, texas",
+            "mexico city, mexico",
+            "interlagos, brazil",
+            "las vegas, nevada",
+            "losail, qatar",
+            "yas marina, abu dhabi, uae"];   
 
 
 
@@ -57,7 +57,7 @@ namespace F1_Tyre
 
             for(int i = 0; i < tracklist.Count; i ++)
             {
-                if (tracklist[i].Contains(track))
+                if (tracklist[i].Contains(track.ToLower()))
                 {
                     isValid = true;
                     break;
@@ -110,7 +110,7 @@ namespace F1_Tyre
                 while ((line = reader.ReadLine()) != null)
                 {
 
-                    if (line.Contains(userInput))
+                    if (line.ToLower().Contains(userInput.ToLower()))
                     {
                         sbText.AppendLine(line);
                         foreach (decimal value in setUpValues)
@@ -122,6 +122,7 @@ namespace F1_Tyre
                         {
                             line = reader.ReadLine(); // Skip the next five as they are the old values
                         } while (Decimal.TryParse(line, out isNumber));
+
                         sbText.AppendLine(line);
                     }
                     else
@@ -153,8 +154,7 @@ namespace F1_Tyre
             using (var reader = new StreamReader("SetUpValues.txt"))
             {
                 string line = "";
-                string? userInput = "";
-                decimal isNumber = 0;
+                string userInput = "";
                 decimal[] setUpValues = new decimal[5];
                 string trackName = "";
 
@@ -162,12 +162,12 @@ namespace F1_Tyre
                 {
                     Console.WriteLine("Enter the desired track: ");
                     userInput = GetValidString();
-                    validTrack = GetValidTrack(userInput);
+                    validTrack = GetValidTrack(userInput.ToLower());
                 } while (validTrack == false);
 
-                while ((line = reader.ReadLine()) != null)
+                while ((line = reader.ReadLine().ToLower()) != null)
                 {
-                    if (line.Contains(userInput))
+                    if (line.Contains(userInput.ToLower()))
                     {
                         trackName = line; 
 
@@ -175,13 +175,6 @@ namespace F1_Tyre
                             {
                                 line = reader.ReadLine();
                                 Decimal.TryParse(line, out setUpValues[i]);
-
-                                if (setUpValues[i] == 0)
-                                {
-                                    Console.WriteLine("\nNo values detected for");
-                                    Console.WriteLine(userInput);
-                                    break;
-                                }
 
                             }
                             break;
